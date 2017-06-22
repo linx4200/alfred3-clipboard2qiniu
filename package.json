@@ -1,0 +1,19 @@
+{
+  "name": "alfred3-clipboard2qiniu",
+  "version": "1.0.0",
+  "description": "a Alfred3 workflow for uploading image from clipbord to qiniu.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linx4200/alfred3-clipboard2qiniu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linx4200/alfred3-clipboard2qiniu/issues"
+  },
+  "homepage": "https://github.com/linx4200/alfred3-clipboard2qiniu#readme",
+  "devDependencies": {
+    "eslint": "^4.0.0"
+  }
+}
