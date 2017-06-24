@@ -1,8 +1,12 @@
 const shell = require('shelljs');
 const path = require('path');
+const { Qiniu } = require('./upload');
+const { config } = require('./config');
+
 const tmpDirName = 'tmp';
 
 function output(err, url) {
+  /* eslint-disable no-console */
   if (err) {
     return console.log(JSON.stringify({
       'items': [
@@ -15,11 +19,20 @@ function output(err, url) {
       ]
     }));
   }
-  // return '';
-  // return JSON.stringify(resJson);
+  return console.log(JSON.stringify({
+    'items': [
+      {
+        'uid': + new Date(),
+        'title': 'Uploaded to Qiniu!',
+        'subtitle': url,
+        'arg': url
+      }
+    ]
+  }));
+  /* eslint-enable no-console */
 }
 
-function run() {
+const run = async function () {
   // 创建 tmp 文件夹   mkdir -p will create the directory if it does not exist, otherwise does nothing.
   const tmpDir = path.join(__dirname, tmpDirName);
   shell.mkdir('-p', tmpDir);
@@ -30,8 +43,20 @@ function run() {
     return output('No image data found on the clipboard, or could not convert!');
   } else {
     // 截图成功保存到本地
-    console.log('截图！！！！');
+    const imageDir = path.join(__dirname, tmpDirName, filename);
+    // 上传到七牛云
+    const qiniu = new Qiniu();
+    try {
+      const { key } = await qiniu.uploadFile(filename, imageDir);
+      const url = `${config.qiniu.urlPrefix}${key}`;
+      // 删除 tmp 文件夹
+      shell.rm('-rf', tmpDir);
+
+      return output(null, url);
+    } catch (e) {
+      return output(`[qiniu]:${e.code}:${e.error}`);
+    }
   }
-}
+};
 
 run();
