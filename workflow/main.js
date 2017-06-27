@@ -33,13 +33,21 @@ function output(err, url) {
 }
 
 const run = async function () {
+  // 先判断有没有设置好 ACCESS_KEY 和 SECRET_KEY
+  if (config.qiniu.ACCESS_KEY === '' || config.qiniu.SECRET_KEY === '') {
+    return output('请设置 ACCESS_KEY 和 SECRET_KEY。');
+  }
+
   // 创建 tmp 文件夹   mkdir -p will create the directory if it does not exist, otherwise does nothing.
   const tmpDir = path.join(__dirname, tmpDirName);
   shell.mkdir('-p', tmpDir);
   shell.cd(tmpDir);
   const filename = `${+ new Date()}.png`;
-  const { stderr } = shell.exec(`pngpaste ${filename}`, { silent: true });
+  const { stderr } = shell.exec(`/usr/local/bin/pngpaste ${filename}`, { silent: true });
+  
   if (stderr !== '') {
+    // 删除 tmp 文件夹
+    shell.rm('-rf', tmpDir);
     return output('No image data found on the clipboard, or could not convert!');
   } else {
     // 截图成功保存到本地
@@ -51,9 +59,11 @@ const run = async function () {
       const url = `${config.qiniu.urlPrefix}${key}`;
       // 删除 tmp 文件夹
       shell.rm('-rf', tmpDir);
-
       return output(null, url);
     } catch (e) {
+      // 删除 tmp 文件夹
+      shell.rm('-rf', tmpDir);
+      if (e.message) return output(e.message);
       return output(`[qiniu]:${e.code}:${e.error}`);
     }
   }
