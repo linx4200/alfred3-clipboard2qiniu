@@ -17,6 +17,7 @@
     "eslint": "^4.0.0"
   },
   "dependencies": {
-    "shelljs": "^0.7.8"  
+    "qiniu": "^7.0.4",
+    "shelljs": "^0.7.8"
   }
 }
