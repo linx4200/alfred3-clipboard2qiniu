@@ -19,6 +19,8 @@ function output(err, url) {
       ]
     }));
   }
+
+  const imageFormat = `![](${url})`;
   return console.log(JSON.stringify({
     'items': [
       {
@@ -26,6 +28,12 @@ function output(err, url) {
         'title': 'Uploaded to Qiniu!',
         'subtitle': url,
         'arg': url
+      },
+      {
+        'uid': + new Date() + 1,
+        'title': 'Image Format of Markdown',
+        'subtitle': imageFormat,
+        'arg': imageFormat
       }
     ]
   }));
@@ -44,7 +52,7 @@ const run = async function () {
   shell.cd(tmpDir);
   const filename = `${+ new Date()}.png`;
   const { stderr } = shell.exec(`/usr/local/bin/pngpaste ${filename}`, { silent: true });
-  
+
   if (stderr !== '') {
     // 删除 tmp 文件夹
     shell.rm('-rf', tmpDir);
