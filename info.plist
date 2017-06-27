@@ -5,7 +5,21 @@
 	<key>bundleid</key>
 	<string>com.alfredapp.xinranliu.clipboard.to.qiniu</string>
 	<key>connections</key>
-	<dict/>
+	<dict>
+		<key>F637B375-4EF8-4766-8ED0-E1CAEC7B9679</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0108D546-D90C-4531-B0B7-6F7C6E5E9E54</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
 	<key>createdby</key>
 	<string>Xinran Liu</string>
 	<key>description</key>
@@ -16,6 +30,23 @@
 	<string>Clipboard to Qiniu</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>0108D546-D90C-4531-B0B7-6F7C6E5E9E54</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -62,6 +93,13 @@
 	</array>
 	<key>uidata</key>
 	<dict>
+		<key>0108D546-D90C-4531-B0B7-6F7C6E5E9E54</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
 		<key>F637B375-4EF8-4766-8ED0-E1CAEC7B9679</key>
 		<dict>
 			<key>xpos</key>
