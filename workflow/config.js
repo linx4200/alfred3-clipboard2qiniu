@@ -1,4 +1,4 @@
-exports.config = {
+exports.conf = {
   qiniu: {
     ACCESS_KEY: '',
     SECRET_KEY: '',

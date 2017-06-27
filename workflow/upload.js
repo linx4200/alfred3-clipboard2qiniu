@@ -1,40 +1,42 @@
 const qiniu = require('qiniu');
-const { config } = require('./config');
+const { conf } = require('./config');
 
 class Qiniu {
   constructor() {
-    qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
-    qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
+    const config = new qiniu.conf.Config();
 
-    // 要上传的空间
-    this.bucket = config.qiniu.bucket;
+    // 空间对应的机房
+    config.zone = qiniu.zone.Zone_z0;
+
+    const mac = new qiniu.auth.digest.Mac(conf.qiniu.ACCESS_KEY, conf.qiniu.SECRET_KEY);
+    const options = {
+      scope: conf.qiniu.bucket,  // 要上传的空间
+    };
+    const putPolicy = new qiniu.rs.PutPolicy(options);
+    const uploadToken = putPolicy.uploadToken(mac);
+
+    this.config = config;
+    this.uploadToken = uploadToken;
 
     // 上传到七牛后保存的文件名前缀
-    this.filePrefix = config.qiniu.filePrefix;
-  }
-
-  // 上传策略函数
-  _uptoken(key) {
-    const putPolicy = new qiniu.rs.PutPolicy(`${this.bucket}:${key}`);
-    return putPolicy.token();
+    this.filePrefix = conf.qiniu.filePrefix;
   }
 
   // 上传函数
   uploadFile(key, localFile) {
-    var extra = new qiniu.io.PutExtra();
-    var fileName = `${this.filePrefix}${key}`;
-
-    //生成上传 Token
-    const token = this._uptoken(fileName);
-
+    const fileName = `${this.filePrefix}${key}`;
+    const formUploader = new qiniu.form_up.FormUploader(this.config);
+    const putExtra = new qiniu.form_up.PutExtra();
+    // 文件上传
     return new Promise((resolve, reject) => {
-      qiniu.io.putFile(token, fileName, localFile, extra, (err, ret) => {
-        if (!err) {
-          // 上传成功， 处理返回值
-          resolve(ret);
+      formUploader.putFile(this.uploadToken, fileName, localFile, putExtra, (respErr, respBody, respInfo) => {
+        if (respErr) {
+          reject(respErr);
+        }
+        if (respInfo.statusCode == 200) {
+          resolve(respBody);
         } else {
-          // 上传失败， 处理返回代码
-          reject(err);
+          reject(respBody);
         }
       });
     });

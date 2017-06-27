@@ -1,7 +1,7 @@
 const shell = require('shelljs');
 const path = require('path');
 const { Qiniu } = require('./upload');
-const { config } = require('./config');
+const { conf } = require('./config');
 
 const tmpDirName = 'tmp';
 
@@ -42,7 +42,7 @@ function output(err, url) {
 
 const run = async function () {
   // 先判断有没有设置好 ACCESS_KEY 和 SECRET_KEY
-  if (config.qiniu.ACCESS_KEY === '' || config.qiniu.SECRET_KEY === '') {
+  if (conf.qiniu.ACCESS_KEY === '' || conf.qiniu.SECRET_KEY === '') {
     return output('请设置 ACCESS_KEY 和 SECRET_KEY。');
   }
 
@@ -64,7 +64,7 @@ const run = async function () {
     const qiniu = new Qiniu();
     try {
       const { key } = await qiniu.uploadFile(filename, imageDir);
-      const url = `${config.qiniu.urlPrefix}${key}`;
+      const url = `${conf.qiniu.urlPrefix}${key}`;
       // 删除 tmp 文件夹
       shell.rm('-rf', tmpDir);
       return output(null, url);
