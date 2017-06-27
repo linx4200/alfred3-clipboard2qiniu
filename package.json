@@ -14,7 +14,9 @@
   },
   "homepage": "https://github.com/linx4200/alfred3-clipboard2qiniu#readme",
   "devDependencies": {
-    "eslint": "^4.0.0",
-    "shelljs": "^0.7.8"
+    "eslint": "^4.0.0"
+  },
+  "dependencies": {
+    "shelljs": "^0.7.8"  
   }
 }
