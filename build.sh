@@ -2,7 +2,7 @@
 
 mkdir -p tmp
 
-yes | cp -rf node_modules workflow icon.png info.plist tmp
+cp -rf node_modules workflow icon.png info.plist tmp
 
 ditto -ck tmp clipboard-to-qiniu.alfredworkflow
 

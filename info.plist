@@ -6,7 +6,7 @@
 	<string>com.alfredapp.xinranliu.clipboard.to.qiniu</string>
 	<key>connections</key>
 	<dict>
-		<key>F637B375-4EF8-4766-8ED0-E1CAEC7B9679</key>
+		<key>icon</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -86,7 +86,7 @@
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>F637B375-4EF8-4766-8ED0-E1CAEC7B9679</string>
+			<string>icon</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -100,10 +100,10 @@
 			<key>ypos</key>
 			<integer>140</integer>
 		</dict>
-		<key>F637B375-4EF8-4766-8ED0-E1CAEC7B9679</key>
+		<key>icon</key>
 		<dict>
 			<key>xpos</key>
-			<integer>270</integer>
+			<integer>200</integer>
 			<key>ypos</key>
 			<integer>140</integer>
 		</dict>
