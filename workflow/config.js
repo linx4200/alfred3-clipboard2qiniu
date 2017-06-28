@@ -2,7 +2,7 @@ exports.conf = {
   qiniu: {
     ACCESS_KEY: '',
     SECRET_KEY: '',
-    bucket: 'linx4200',
+    bucket: '',
     filePrefix: 'md-upload-',
     urlPrefix: ''
   }
